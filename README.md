@@ -15,6 +15,22 @@ A cross-platform terminal-based to-do list application written in C#, built usin
 - [ ] Publish standalone executable files
 - [x] Add theme customization menu.
 
+# Usage
+
+Run interactive mode (TUI)
+
+```bash
+dotnet run
+```
+
+Run with command-line arguments
+
+```bash
+dotnet run -- --help
+```
+
+NOTE: executable files will be created for easier access
+
 # Contribution
 
 Contributions are welcome!
