@@ -19,6 +19,13 @@ class Program
         var day = DateTime.Now;
         var db = new DatabaseController("tasks.json");
 
+        // handle arguments
+        if (args.Length > 0)
+        {
+            Arguments.HandleArgs(args, db);
+            return;
+        }
+
         Application.Init();
 
         Colors.Base.Normal = Application.Driver.MakeAttribute(Color.White, Color.Black);
