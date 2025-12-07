@@ -40,10 +40,11 @@ NOTE: This application uses .net 8
 
 # Gallery
 
-- CLI mode (left) & TUI mode (right)
-<div>
-    <img width="50%" align="left" src="./images/climode.png">
-    <img width="50%" align="right" src="./images/tuimode.png">
+- CLI mode & TUI mode
+
+<div align="left">
+    <img width="50%" src="./images/climode.png">
+    <img width="50%" src="./images/tuimode.png">
 </div>
 
 # Contribution
