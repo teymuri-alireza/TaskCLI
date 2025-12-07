@@ -17,21 +17,14 @@ A cross-platform terminal-based to-do list application written in C#, built usin
 
 # Usage
 
-Choose the default mode first
-
-- TUI mode
-```bash
-dotnet run -- --mode tui
-```
-
-- CLI mode
-```bash
-dotnet run -- --mode cli
-```
-
-Run the application
+Run the following command to initialize setting
 ```bash
 dotnet run
+```
+
+You can also check other commands with
+```bash
+dotnet run -- --help
 ```
 
 NOTE: executable files will be created for easier access
