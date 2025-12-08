@@ -170,11 +170,29 @@ public class CLImode
     public static void EditHandler(TodoItem item, DatabaseController db)
     {
         var newTitle = AnsiConsole.Prompt(
-            new TextPrompt<string?>("[lightskyblue1]Enter new title:[/]")
-            .DefaultValue(item.Title?.ToString()));
+            new TextPrompt<string>("[lightskyblue1]Enter new title:[/]")
+            .DefaultValue(item.Title ?? "".ToString())
+            .Validate(input =>
+            {
+                if (Regex.IsMatch(input, @"[\[\]\(\)/\\]"))
+                {
+                    Console.WriteLine("You can't use: [ ] ( ) \\ /");
+                    return ValidationResult.Error("[red]Invalid characters detected[/]");
+                }
+                return ValidationResult.Success();
+            }));
         var newDescription = AnsiConsole.Prompt(
-            new TextPrompt<string?>("[lightskyblue1]Enter new desciption:[/]")
-            .AllowEmpty());
+            new TextPrompt<string>("[lightskyblue1]Enter new desciption:[/]")
+            .AllowEmpty()
+            .Validate(input =>
+            {
+                if (Regex.IsMatch(input, @"[\[\]\(\)/\\]"))
+                {
+                    Console.WriteLine("You can't use: [ ] ( ) \\ /");
+                    return ValidationResult.Error("[red]Invalid characters detected[/]");
+                }
+                return ValidationResult.Success();
+            }));
         item.Title = newTitle;
         item.Description = newDescription;
         db.Save();
