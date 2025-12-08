@@ -78,6 +78,14 @@ class Arguments
             return;
         }
         string newTaskTitle = args[1];
+        var forbidden = new[] { "[", "]", "(", ")", "/", "\\" };
+
+        if (forbidden.Any(newTaskTitle.Contains))
+        {
+            AnsiConsole.Markup("[red]You can't use: [/]");
+            Console.WriteLine("[ ] ( ) \\ /");
+            return;
+        }
         var newTaskItem = new TodoItem()
         {
             Id = Program.GenerateNextID(db),
