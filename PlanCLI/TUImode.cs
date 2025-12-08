@@ -108,6 +108,21 @@ class TUImode
                 MessageBox.ErrorQuery("Validation", "Title is required.", "OK");
                 return;
             }
+            var forbidden = new[] { "[", "]", "(", ")", "/", "\\" };
+
+            if (forbidden.Any(titleValue.Contains))
+            {
+                MessageBox.ErrorQuery("Validation", "Input can not contain [ ] ( ) \\ /", "OK");
+                return;
+            }
+            if (!string.IsNullOrWhiteSpace(descriptionValue))
+            {
+                if (forbidden.Any(descriptionValue.Contains))
+                {
+                    MessageBox.ErrorQuery("Validation", "Input can not contain [ ] ( ) \\ /", "OK");
+                    return;
+                }
+            }
             var newTask = new TodoItem
             {
                 Id = Program.GenerateNextID(db),
@@ -161,29 +176,29 @@ class TUImode
             // Use a plain Label instead of a CheckBox so no glyph is drawn.
             var itemLabel = new Label($"{task.Title} {task.Description}")
             {
-            X = 1,
-            Y = y++,
-            ColorScheme = task.IsDone ? doneColor : notDoneColor,
-            CanFocus = true // allow keyboard focus so Enter can open edit
+                X = 1,
+                Y = y++,
+                ColorScheme = task.IsDone ? doneColor : notDoneColor,
+                CanFocus = true // allow keyboard focus so Enter can open edit
             };
 
             // Open edit dialog on Enter key
             itemLabel.KeyPress += (kb) =>
             {
-            if (kb.KeyEvent.Key == Key.Enter)
-            {
-                OpenEditTaskDialog(task, db, window);
-                kb.Handled = true;
-            }
+                if (kb.KeyEvent.Key == Key.Enter)
+                {
+                    OpenEditTaskDialog(task, db, window);
+                    kb.Handled = true;
+                }
             };
 
             // Open edit dialog on mouse click (left button)
             itemLabel.MouseClick += (me) =>
             {
-            if ((me.MouseEvent.Flags & MouseFlags.Button1Clicked) != 0)
-            {
-                OpenEditTaskDialog(task, db, window);
-            }
+                if ((me.MouseEvent.Flags & MouseFlags.Button1Clicked) != 0)
+                {
+                    OpenEditTaskDialog(task, db, window);
+                }
             };
 
             container?.Add(itemLabel);
@@ -193,7 +208,7 @@ class TUImode
     public static void OpenEditTaskDialog(TodoItem task, DatabaseController db, Window window)
     {
         var dialog = new Dialog("Edit Task", 60, 12);
-        
+
         var titleLabel = new Label("Title:")
         {
             X = 1,
@@ -216,7 +231,6 @@ class TUImode
             Y = Pos.Top(descriptionLabel),
             Width = 40
         };
-        
         var isDoneCheckBox = new CheckBox("Mark as Done", task.IsDone)
         {
             X = 1,
@@ -238,8 +252,31 @@ class TUImode
         var save = new Button("Save");
         save.Clicked += () =>
         {
-            task.Title = titleInput.Text.ToString();
-            task.Description = descriptionInput.Text.ToString();
+            var titleValue = titleInput.Text.ToString();
+            var descriptionValue = descriptionInput.Text.ToString();
+        
+            if (string.IsNullOrWhiteSpace(titleValue))
+            {
+                MessageBox.ErrorQuery("Validation", "Title is required.", "OK");
+                return;
+            }
+            var forbidden = new[] { "[", "]", "(", ")", "/", "\\" };
+            
+            if (forbidden.Any(titleValue.Contains))
+            {
+                MessageBox.ErrorQuery("Validation", "Input can not contain [ ] ( ) \\ /", "OK");
+                return;
+            }
+            if (!string.IsNullOrWhiteSpace(descriptionValue))
+            {
+                if (forbidden.Any(descriptionValue.Contains))
+                {
+                    MessageBox.ErrorQuery("Validation", "Input can not contain [ ] ( ) \\ /", "OK");
+                    return;
+                }
+            }
+            task.Title = titleInput.Text.ToString();;
+            task.Description = descriptionInput.Text.ToString();;
             task.IsDone = isDoneCheckBox.Checked;
             db.Save();
             BuildCheckBoxList(db, window);
