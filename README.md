@@ -10,7 +10,8 @@ A cross-platform terminal-based to-do list application written in C#, built usin
 
 # Planned Features
 
-- [ ] Add deadline column to tasks table.
+- [ ] Add open-calendar button for deadline column.
+- [x] Add deadline column to tasks table.
 - [x] Publish standalone executable files
 - [x] Add theme customization menu.
 
