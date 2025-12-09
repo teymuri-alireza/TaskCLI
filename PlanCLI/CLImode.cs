@@ -110,7 +110,7 @@ public class CLImode
             .AllowEmpty());
 
         var IsDeadline = AnsiConsole.Prompt(new SelectionPrompt<string>()
-            .Title("[lightskyblue1]Do you wan to edit deadline?[/]")
+            .Title("[lightskyblue1]Do you wan to add deadline?[/]")
             .AddChoices("yes", "no"));
         DateOnly? date = new DateOnly();
         if (IsDeadline == "yes")
@@ -229,14 +229,13 @@ public class CLImode
             }));
         var IsDeadline = AnsiConsole.Prompt(new SelectionPrompt<string>()
             .Title("[lightskyblue1]Do you wan to edit deadline?[/]")
-            .AddChoices("yes", "no"));
+            .AddChoices("yes", "no", "delete deadline"));
         var date = new DateOnly();
         if (IsDeadline == "yes")
         {
             var year = AnsiConsole.Prompt(new SelectionPrompt<int>()
                 .Title("Select a year")
-                .AddChoices(2024, 2025, 2026, 2027));
-
+                .AddChoices(2025, 2026, 2027, 2028));
             var month = AnsiConsole.Prompt(new SelectionPrompt<int>()
                 .Title("Select a month")
                 .AddChoices(Enumerable.Range(1, 12)));
@@ -245,9 +244,12 @@ public class CLImode
             var day = AnsiConsole.Prompt(new SelectionPrompt<int>()
                 .Title("Select a day")
                 .AddChoices(Enumerable.Range(1, daysInMonth)));
-
             date = new DateOnly(year, month, day);
             item.Date = date;
+        }
+        else if (IsDeadline == "delete deadline")
+        {
+            item.Date = null;
         }
         item.Title = newTitle;
         item.Description = newDescription;
