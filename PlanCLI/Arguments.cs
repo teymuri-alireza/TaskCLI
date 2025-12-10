@@ -121,16 +121,16 @@ class Arguments
     public static void PrintHelp()
     {
         AnsiConsole.MarkupLine("[green]plancli usage:[/]");
-        Console.WriteLine("     dotnet run                 Run in default mode if it's set");
-        Console.WriteLine("     dotnet run -- -m cli       Set default to Command-Line mode (CLI)");
-        Console.WriteLine("     dotnet run -- -m tui       Set default to interactive mode (TUI)");
+        Console.WriteLine("     plancli              Run in default mode if it's set");
+        Console.WriteLine("     plancli -m cli       Set default to Command-Line mode (CLI)");
+        Console.WriteLine("     plancli -m tui       Set default to interactive mode (TUI)");
         AnsiConsole.MarkupLine("[green]For easier access to tasks:[/]");
-        Console.WriteLine("     dotnet run -- -l           Print the task list");
-        Console.WriteLine("     dotnet run -- -a \"title\"   Add new task");
-        Console.WriteLine("     dotnet run -- -c           Complete a task");
-        Console.WriteLine("     dotnet run -- -e           Edit a task");
-        Console.WriteLine("     dotnet run -- -d           Delete a task");
-        Console.WriteLine("     dotnet run -- -r           Reset tasks list");
-        Console.WriteLine("     dotnet run -- -v           Prints plancli version");
+        Console.WriteLine("     plancli -l           Print the task list");
+        Console.WriteLine("     plancli -a \"title\"   Add new task");
+        Console.WriteLine("     plancli -c           Complete a task");
+        Console.WriteLine("     plancli -e           Edit a task");
+        Console.WriteLine("     plancli -d           Delete a task");
+        Console.WriteLine("     plancli -r           Reset tasks list");
+        Console.WriteLine("     plancli -v           Prints plancli version");
     }
 }
